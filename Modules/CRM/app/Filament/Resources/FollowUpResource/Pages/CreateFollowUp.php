@@ -1,0 +1,11 @@
+<?php
+
+namespace Modules\CRM\app\Filament\Resources\FollowUpResource\Pages;
+
+use Modules\CRM\app\Filament\Resources\FollowUpResource;
+use Filament\Resources\Pages\CreateRecord;
+
+class CreateFollowUp extends CreateRecord
+{
+    protected static string $resource = FollowUpResource::class;
+}

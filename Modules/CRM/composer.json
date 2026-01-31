@@ -1,0 +1,17 @@
+{
+    "name": "nwidart/crm",
+    "description": "CRM Module for Laravel",
+    "type": "laravel-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Your Name",
+            "email": "your@email.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Modules\\CRM\\": "app/"
+        }
+    }
+}
