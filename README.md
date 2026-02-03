@@ -65,11 +65,62 @@ A comprehensive CRM (Customer Relationship Management) system built with Laravel
 ## Installation
 
 ### Requirements
+- Existing Laravel 12+ application
 - PHP 8.2 or higher
 - Composer
-- SQLite, MySQL, or PostgreSQL
+- Filament v4 (will be installed as dependency)
 
-### Steps
+### Installation Options
+
+#### Option 1: Install in Existing Laravel Application (Recommended)
+
+If you already have a Laravel application:
+
+1. Copy the CRM module to your Laravel app:
+```bash
+cp -r Modules/CRM /path/to/your/laravel/app/Modules/
+```
+
+2. Add module autoloading to your `composer.json`:
+```json
+"autoload": {
+    "psr-4": {
+        "Modules\\": "Modules/"
+    },
+    "files": [
+        "app/helpers.php"
+    ]
+}
+```
+
+3. Install required dependencies:
+```bash
+composer require filament/filament:^4.0 nwidart/laravel-modules:^11.0 barryvdh/laravel-dompdf:^3.0
+composer dump-autoload
+```
+
+4. Copy helper file and register service provider:
+```bash
+# Copy helper file
+cp app/helpers.php /path/to/your/laravel/app/app/helpers.php
+
+# Add to bootstrap/app.php providers array:
+# Modules\CRM\app\Providers\CRMServiceProvider::class,
+```
+
+5. Run CRM migrations:
+```bash
+php artisan migrate
+```
+
+6. Seed initial data (optional):
+```bash
+php artisan db:seed --class=Modules\\CRM\\database\\seeders\\CRMDatabaseSeeder
+```
+
+#### Option 2: Standalone Installation
+
+For a fresh standalone CRM application:
 
 1. Clone the repository:
 ```bash
@@ -85,16 +136,17 @@ composer install
 3. Copy environment file and configure:
 ```bash
 cp .env.example .env
-```
-
-4. Generate application key:
-```bash
 php artisan key:generate
 ```
 
-5. Run migrations:
+4. Run migrations:
 ```bash
 php artisan migrate
+```
+
+5. Seed initial data:
+```bash
+php artisan db:seed
 ```
 
 6. Create an admin user:

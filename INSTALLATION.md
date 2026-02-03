@@ -1,17 +1,163 @@
-# CRM Application Installation Guide
+# CRM Module Installation Guide
 
-## Quick Start
+## Overview
 
-This guide will help you set up the CRM application on your local machine.
+This guide provides instructions for installing the CRM module in your Laravel application. The CRM module can be installed in two ways:
+1. **As a module in an existing Laravel 12+ application** (recommended for production)
+2. **As a standalone application** (for testing or development)
 
 ## Prerequisites
 
 - PHP 8.2 or higher
 - Composer
+- Existing Laravel 12+ application (for Option 1)
 - SQLite, MySQL, or PostgreSQL database
 - Web server (Apache, Nginx, or PHP built-in server)
 
-## Installation Steps
+## Option 1: Install in Existing Laravel Application (Recommended)
+
+This is the recommended approach if you already have a Laravel application and want to add CRM functionality.
+
+### Step 1: Copy the CRM Module
+
+Copy the CRM module to your Laravel application's Modules directory:
+
+```bash
+# From this repository root
+cp -r Modules/CRM /path/to/your/laravel/app/Modules/
+
+# If Modules directory doesn't exist, create it first
+mkdir -p /path/to/your/laravel/app/Modules
+```
+
+### Step 2: Update Composer Autoloading
+
+Add the following to your Laravel application's `composer.json`:
+
+```json
+{
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Modules\\": "Modules/"
+        },
+        "files": [
+            "app/helpers.php"
+        ]
+    }
+}
+```
+
+### Step 3: Copy Helper File
+
+```bash
+cp app/helpers.php /path/to/your/laravel/app/app/helpers.php
+```
+
+### Step 4: Install Required Dependencies
+
+```bash
+cd /path/to/your/laravel/app
+composer require filament/filament:^4.0
+composer require nwidart/laravel-modules:^11.0
+composer require barryvdh/laravel-dompdf:^3.0
+composer dump-autoload
+```
+
+### Step 5: Register Service Provider
+
+Add the CRM service provider to your `bootstrap/app.php`:
+
+```php
+return Application::configure(basePath: dirname(__DIR__))
+    // ... other configuration
+    ->withProviders([
+        // ... other providers
+        Modules\CRM\app\Providers\CRMServiceProvider::class,
+    ])
+    ->create();
+```
+
+If you're using Laravel 11 or older with config/app.php, add to the providers array instead:
+
+```php
+'providers' => [
+    // ... other providers
+    Modules\CRM\app\Providers\CRMServiceProvider::class,
+],
+```
+
+### Step 6: Copy Configuration Files (Optional)
+
+Copy module configuration files if needed:
+
+```bash
+cp config/modules.php /path/to/your/laravel/app/config/
+cp config/dompdf.php /path/to/your/laravel/app/config/
+```
+
+### Step 7: Run Migrations
+
+Run the CRM module migrations:
+
+```bash
+php artisan migrate
+```
+
+This will create the following tables:
+- customers
+- products
+- quotes
+- quote_items
+- follow_ups
+- email_templates
+- email_trackings
+
+### Step 8: Seed Initial Data (Optional)
+
+Populate the database with sample products and email templates:
+
+```bash
+php artisan db:seed --class=Modules\\CRM\\database\\seeders\\CRMDatabaseSeeder
+```
+
+### Step 9: Register Admin Panel Provider (if not already)
+
+If you haven't set up Filament yet, create an admin panel provider:
+
+```bash
+php artisan make:filament-panel admin
+```
+
+Or copy the provided AdminPanelProvider:
+
+```bash
+cp app/Providers/AdminPanelProvider.php /path/to/your/laravel/app/app/Providers/
+```
+
+### Step 10: Create Admin User
+
+If you don't have an admin user yet:
+
+```bash
+php artisan make:filament-user
+```
+
+### Step 11: Access the CRM
+
+Start your Laravel application and access the admin panel:
+
+```bash
+php artisan serve
+```
+
+Navigate to: `http://localhost:8000/admin`
+
+---
+
+## Option 2: Standalone Installation
+
+For a fresh standalone CRM application:
 
 ### 1. Clone the Repository
 
