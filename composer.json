@@ -1,0 +1,46 @@
+{
+    "name": "visio-soft/crm",
+    "description": "Complete CRM module for Laravel with customer management, kanban board, quotes, follow-ups, email templates and tracking",
+    "type": "library",
+    "keywords": [
+        "laravel",
+        "crm",
+        "filament",
+        "customer-management",
+        "quotes",
+        "kanban",
+        "email-tracking",
+        "follow-up"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Visio-Soft",
+            "email": "info@visio-soft.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^11.0|^12.0",
+        "filament/filament": "^4.0",
+        "barryvdh/laravel-dompdf": "^3.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0|^10.0",
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\CRM\\": "app/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\CRM\\Providers\\CRMServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
