@@ -1,70 +1,44 @@
 {
     "name": "visio-soft/crm",
-    "type": "project",
-    "description": "CRM application with Laravel 12 and Filament v4",
-    "keywords": ["laravel", "filament", "crm", "framework"],
+    "description": "Complete CRM module for Laravel with customer management, kanban board, quotes, follow-ups, email templates and tracking",
+    "type": "library",
+    "keywords": [
+        "laravel",
+        "crm",
+        "filament",
+        "customer-management",
+        "quotes",
+        "kanban",
+        "email-tracking",
+        "follow-up"
+    ],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Visio-Soft",
+            "email": "info@visio-soft.com"
+        }
+    ],
     "require": {
         "php": "^8.2",
-        "laravel/framework": "^12.0",
-        "laravel/tinker": "^2.10",
+        "illuminate/support": "^11.0|^12.0",
         "filament/filament": "^4.0",
-        "nwidart/laravel-modules": "^11.0",
-        "barryvdh/laravel-dompdf": "^3.0",
-        "spatie/laravel-mail-preview": "^7.0"
+        "barryvdh/laravel-dompdf": "^3.0"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.23",
-        "laravel/pint": "^1.18",
-        "laravel/sail": "^1.37",
-        "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.0",
+        "orchestra/testbench": "^9.0|^10.0",
         "phpunit/phpunit": "^11.0"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/",
-            "Modules\\": "Modules/"
-        },
-        "files": [
-            "app/helpers.php"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
+            "Modules\\CRM\\": "app/"
         }
-    },
-    "scripts": {
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan filament:upgrade"
-        ],
-        "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
-        ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
-        ]
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
-        }
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "providers": [
+                "Modules\\CRM\\Providers\\CRMServiceProvider"
+            ]
         }
     },
     "minimum-stability": "stable",

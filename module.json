@@ -1,0 +1,11 @@
+{
+    "name": "CRM",
+    "alias": "crm",
+    "description": "Complete CRM module with customer tracking, kanban board, products, quotes, email templates and tracking",
+    "keywords": ["crm", "customer", "kanban", "quotes", "email-tracking"],
+    "priority": 0,
+    "providers": [
+        "Modules\\CRM\\Providers\\CRMServiceProvider"
+    ],
+    "files": []
+}
